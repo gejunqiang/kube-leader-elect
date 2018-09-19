@@ -68,10 +68,14 @@ leader_elect(){
 
   while true; do
       read -r RESOURCE_VERSION LEADER_EXPIRES LEADER_MEMBER < <(export LEADER_ANNOTATION LEADER_EXPIRES_ANNOTATION; kubectl get "$LEADER_HOLDER" -o json --ignore-not-found | \
-          jq -r '"\(.metadata.resourceVersion) \(.metadata.annotations[env.LEADER_EXPIRES_ANNOTATION]//empty) \(.metadata.annotations[env.LEADER_ANNOTATION]//empty)"')
+          jq -r '"\(.metadata.resourceVersion) \(.metadata.annotations[env.LEADER_EXPIRES_ANNOTATION]//0) \(.metadata.annotations[env.LEADER_ANNOTATION]//"")"')
 
-      NOW="$(date +%s)"
-      [ ! -z "$RESOURCE_VERSION" ] && (( LEADER_EXPIRES > NOW )) || {
+      [ ! -z "$RESOURCE_VERSION" ] || {
+          log ERR "$MEMBER: $LEADER_HOLDER not exists"
+          continue
+      }
+
+      NOW="$(date +%s)" && (( LEADER_EXPIRES > NOW )) || {
           log INFO "$MEMBER: new election"
           leader_renew || continue
       }
