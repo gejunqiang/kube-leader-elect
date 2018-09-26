@@ -120,4 +120,5 @@ leader_elect(){
   done < <(while true; do kubectl get "$LEADER_HOLDER" -o name --no-headers --watch-only; done)
 }
 
+[ -z "$LEADER_ELECT_INIT" ] || eval "$LEADER_ELECT_INIT" || exit 1 
 leader_elect "$@"
