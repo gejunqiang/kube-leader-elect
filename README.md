@@ -18,8 +18,8 @@ kubectl apply -f-<<\EOF
 }
 EOF
 
-./kube-leader-elect.sh --holder configmap/leader-election --member node1 --lifetime 30 --renew 10 echo master
+dumb-init ./kube-leader-elect.sh --holder configmap/leader-election --member node1 --lifetime 30 --renew 10 echo master
 
-./kube-leader-elect.sh --holder configmap/leader-election --member node2 --lifetime 30 --renew 10 echo master
+dumb-init ./kube-leader-elect.sh --holder configmap/leader-election --member node2 --lifetime 30 --renew 10 echo master
 
 ```

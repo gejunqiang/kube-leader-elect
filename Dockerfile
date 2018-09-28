@@ -9,8 +9,8 @@ RUN apk add --no-cache bash coreutils curl openssh-client openssl git findutils 
 ADD kube-leader-elect.sh /usr/local/kube-leader-elect.sh
 RUN chmod 755 /usr/local/kube-leader-elect.sh && ln -s /usr/local/kube-leader-elect.sh /usr/local/bin/kube-leader-elect
 
-ENV LEADER_LIFETIME=${LEADER_LIFETIME:-90} \
-    LEADER_RENEW="${LEADER_RENEW:-30}" \
+ENV LEADER_LIFETIME=${LEADER_LIFETIME:-240} \
+    LEADER_RENEW="${LEADER_RENEW:-60}" \
     LEADER_HOLDER="${LEADER_HOLDER:-configmap/leader-election}" \
     MEMBER="${MEMBER:-$HOSTNAME}"
 
