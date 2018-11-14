@@ -2,6 +2,7 @@ kube-leader-elect script
 ===
 kubernetes leader election with shell script and `kubectl annotate`
 
+DEPLICATED, move to https://github.com/xiaopal/kube-leaderelect (implemented with golang)
 
 examples
 ---
