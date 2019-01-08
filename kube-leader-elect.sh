@@ -31,7 +31,7 @@ leader_enter(){
 leader_leave(){
   leader_cleanup
   log INFO "$MEMBER: leaving"
-  kubectl annotate "$LEADER_HOLDER" "$LEADER_EXPIRES_ANNOTATION=0" --resource-version="$RESOURCE_VERSION" --overwrite
+  kubectl annotate "$LEADER_HOLDER" "$LEADER_EXPIRES_ANNOTATION=0" --overwrite
 }
 
 leader_ping(){
